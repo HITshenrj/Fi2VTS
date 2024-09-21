@@ -11,15 +11,15 @@ if __name__ == '__main__':
     torch.manual_seed(fix_seed)
     np.random.seed(fix_seed)
 
-    parser = argparse.ArgumentParser(description='CausalNet')
+    parser = argparse.ArgumentParser(description='Fi2VTS')
 
     # basic config
     parser.add_argument('--task_name', type=str, default='long_term_forecast',
                         help='task name, options:[long_term_forecast]')
     parser.add_argument('--is_training', type=int, default=1, help='status')
     parser.add_argument('--model_id', type=str, default='ETTh1_96_96', help='model id')
-    parser.add_argument('--model', type=str, default='CausalNet',
-                        help='model name, options: [Autoformer, Transformer, TimesNet, CausalNet]')
+    parser.add_argument('--model', type=str, default='Fi2VTS',
+                        help='model name, options: [Autoformer, Transformer, TimesNet, Fi2VTS]')
 
     # data loader
     parser.add_argument('--data', type=str, default='ETTh1', help='dataset type')
@@ -45,7 +45,7 @@ if __name__ == '__main__':
     parser.add_argument('--anomaly_ratio', type=float, default=0.25, help='prior anomaly ratio (%)')
 
     # model define
-    parser.add_argument('--stft_window', nargs='+', type=int, help='for CausalBlocks', default=[100,50,20])
+    parser.add_argument('--stft_window', nargs='+', type=int, help='for Fi2VBlocks', default=[100,50,20])
     parser.add_argument('--top_k', type=int, default=10, help='for TimesBlock')
     parser.add_argument('--num_kernels', type=int, default=6, help='for Inception')
     parser.add_argument('--enc_in', type=int, default=7, help='encoder input size')
