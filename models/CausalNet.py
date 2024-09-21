@@ -43,9 +43,9 @@ def STFT_for_Period(x, stft_window_len_list, k=10):
     return stft_results
 
 
-class CausalBlock(nn.Module):
+class Fi2VBlock(nn.Module):
     def __init__(self, configs):
-        super(CausalBlock, self).__init__()
+        super(Fi2VBlock, self).__init__()
         self.seq_len = configs.seq_len
         self.pred_len = configs.pred_len
         self.k = configs.top_k
@@ -104,7 +104,7 @@ class Model(nn.Module):
         self.seq_len = configs.seq_len
         self.label_len = configs.label_len
         self.pred_len = configs.pred_len
-        self.model = nn.ModuleList([CausalBlock(configs)
+        self.model = nn.ModuleList([Fi2VBlock(configs)
                                     for _ in range(configs.e_layers)])
         self.enc_embedding = DataEmbedding(configs.enc_in, configs.d_model, configs.embed, configs.freq,
                                            configs.dropout)
@@ -136,7 +136,7 @@ class Model(nn.Module):
         enc_out = self.enc_embedding(x_enc, x_mark_enc)  # [B,T,C]
         enc_out = self.predict_linear(enc_out.permute(0, 2, 1)).permute(
             0, 2, 1)  # align temporal dimension
-        # CausalBlocks
+        # Fi2VBlocks
         for i in range(self.layer):
             enc_out = self.layer_norm(self.model[i](enc_out))
         # porject back
