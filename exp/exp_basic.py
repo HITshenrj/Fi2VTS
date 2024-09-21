@@ -7,7 +7,7 @@ class Exp_Basic(object):
     def __init__(self, args):
         self.args = args
         self.model_dict = {
-            'CausalNet': CausalNet,
+            'Fi2VTS': Fi2VTS,
         }
         self.device = self._acquire_device()
         self.model = self._build_model().to(self.device)
